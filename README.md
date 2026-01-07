@@ -28,6 +28,7 @@ int main(void) {
     }
 
     // cleanup
+    // first destroy movies, then destroy list
     for (size_t i = 0; i < movie_list_size(list); i++) {
         movie_destroy(movie_list_get(list, i));
     }
