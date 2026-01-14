@@ -10,6 +10,7 @@ typedef enum {
     CMD_STATS,
     CMD_HELP,
     CMD_EXIT,
+    CMD_SHOW_ALL,
     CMD_UNKNOWN
 } Command;
 

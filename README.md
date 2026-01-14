@@ -16,7 +16,7 @@ A simple terminal-based Movie Library Management System written in C. The projec
 ## How to compile this program
 
 ```zsh
-gcc src/main.c src/movie.c src/movie_list.c src/command.c -o MovieLibrary
+gcc gcc src/main.c src/movie.c src/movie_list.c src/command.c src/commands/movie_search.c -o MovieLibrary
 ```
 
 ## How to run this file
