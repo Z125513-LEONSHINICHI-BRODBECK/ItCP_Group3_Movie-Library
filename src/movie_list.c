@@ -38,6 +38,16 @@ size_t movie_list_size(const MovieList *list) {
     return list->size;
 }
 
+const Movie *movie_list_get(const MovieList *list, size_t index) {
+    if (index >= list->size) return NULL;
+    return list->data[index];
+}
+
+Movie *movie_list_get_mut(MovieList *list, size_t index) {
+    if (index >= list->size) return NULL;
+    return list->data[index];
+}
+
 void movie_list_add(MovieList *list, Movie *movie) {
     if (list->size == list->capacity) {
         size_t new_capacity = list->capacity * 2;
@@ -55,13 +65,9 @@ void movie_list_add(MovieList *list, Movie *movie) {
     list->data[list->size++] = movie;
 }
 
-Movie *movie_list_get(const MovieList *list, size_t index) {
-    if (index >= list->size) return NULL;
-    return list->data[index];
-}
-
 void movie_list_print_table(const MovieList *list) {
     if (!list) return;
+    printf("\e[1;1H\e[2J");
 
     printf(
         "| %-4s | %-12s | %-25s | %-8s | %-18s | %-20s |\n",
@@ -73,7 +79,7 @@ void movie_list_print_table(const MovieList *list) {
     );
 
     for (size_t i = 0; i < movie_list_size(list); ++i) {
-        Movie *m = movie_list_get(list, i);
+        const Movie *m = movie_list_get(list, i);
         if (!m) continue;
 
         printf(
@@ -86,4 +92,6 @@ void movie_list_print_table(const MovieList *list) {
             movie_get_director(m)
         );
     }
+    printf("\e[%d;1H> ", 999);
+    fflush(stdout);
 }
