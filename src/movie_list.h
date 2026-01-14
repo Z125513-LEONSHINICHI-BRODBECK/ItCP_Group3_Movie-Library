@@ -14,5 +14,6 @@ void movie_list_destroy(MovieList *list);
 size_t movie_list_size(const MovieList *list);
 void movie_list_add(MovieList *list, Movie *movie);
 Movie *movie_list_get(const MovieList *list, size_t index);
+void movie_list_print_table(const MovieList *list);
 
 #endif /* MOVIE_LIST_H */

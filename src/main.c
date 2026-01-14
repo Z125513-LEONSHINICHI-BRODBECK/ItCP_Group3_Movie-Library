@@ -1,31 +1,66 @@
 #include <stdio.h>
+#include <string.h>
 #include "movie.h"
 #include "movie_list.h"
+#include "command.h"
 
+int isRunning = 1;
 
-/*
- * THIS FILE IS JUST A PLACEHOLDER FOR THE BEGINNING. IT DEMONSTRATES A BASIC IMPLEMENTATION OF THE MOVIE OBJECT AND THE MOVIE LIST.
- */
 int main(void) {
-    // creating initial dynamic list
+    /* create initial movie list */
     MovieList *list = movie_list_create();
 
-    // adding movies
+
+    // for developing purposes. will be deleted later when read csv file reader is implemented
     movie_list_add(list, movie_create(1, 1999, "The Matrix", "USA", "Sci-Fi", "Wachowskis"));
-    movie_list_add(list, movie_create(2, 2010, "Inception", "USA", "Sci-Fi", "Nolan"));
+    movie_list_add(list, movie_create(2, 2010, "Inception", "USA", "Sci-Fi", "Christopher Nolan"));
+    movie_list_add(list, movie_create(123, 1985, "Back to the Future", "USA", "Adventure/Comedy", "Robert Zemeckis"));
 
 
-    // displaying movie title and year of the whole movie list
-    for (size_t i = 0; i < movie_list_size(list); i++) {
-        Movie *m = movie_list_get(list, i);
-        printf("%s (%d)\n",
-               movie_get_title(m),
-               movie_get_release_year(m));
+
+    // TODO: read csv file
+    movie_list_print_table(list);
+
+    while (isRunning) {
+        char input[256];
+        fgets(input, sizeof(input), stdin);
+
+        char *command = strtok(input, " \n");
+
+        switch (to_command(command)) {
+            case (CMD_GROUP):
+                // TODO: group movies
+                break;
+            case (CMD_SEARCH):
+                // TODO: search movies
+                break;
+            case (CMD_ADD):
+                // TODO: add movie
+                break;
+            case (CMD_EDIT):
+                // TODO: edit movie
+                break;
+            case (CMD_DELETE):
+                // TODO: delete movie
+                break;
+            case (CMD_STATS):
+                // TODO: show stats
+                break;
+            case (CMD_HELP):
+                // TODO: show help
+                break;
+            case (CMD_EXIT):
+                isRunning = 0;
+                printf("Bye.\n");
+                break;
+            default:
+                // TODO: show help
+                printf("Unknown command\n");
+        }
     }
 
-    // cleanup
-    // first destroy movies, then destroy list
-    for (size_t i = 0; i < movie_list_size(list); i++) {
+    /* Cleanup */
+    for (size_t i = 0; i < movie_list_size(list); ++i) {
         movie_destroy(movie_list_get(list, i));
     }
     movie_list_destroy(list);
