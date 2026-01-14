@@ -1,5 +1,6 @@
 #include "movie_list.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 struct MovieList {
     Movie **data;
@@ -57,4 +58,32 @@ void movie_list_add(MovieList *list, Movie *movie) {
 Movie *movie_list_get(const MovieList *list, size_t index) {
     if (index >= list->size) return NULL;
     return list->data[index];
+}
+
+void movie_list_print_table(const MovieList *list) {
+    if (!list) return;
+
+    printf(
+        "| %-4s | %-12s | %-25s | %-8s | %-18s | %-20s |\n",
+        "ID", "Year", "Title", "Origin", "Genre", "Director"
+    );
+
+    printf(
+        "|------|--------------|---------------------------|----------|--------------------|----------------------|\n"
+    );
+
+    for (size_t i = 0; i < movie_list_size(list); ++i) {
+        Movie *m = movie_list_get(list, i);
+        if (!m) continue;
+
+        printf(
+            "| %4d | %12d | %-25s | %-8s | %-18s | %-20s |\n",
+            movie_get_id(m),
+            movie_get_release_year(m),
+            movie_get_title(m),
+            movie_get_origin(m),
+            movie_get_genre(m),
+            movie_get_director(m)
+        );
+    }
 }
