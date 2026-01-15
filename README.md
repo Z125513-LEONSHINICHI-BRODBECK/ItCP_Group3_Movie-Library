@@ -13,6 +13,8 @@ A simple terminal-based Movie Library Management System written in C. The projec
 
 ---
 
+compile and run from the repository root folder
+
 ## How to compile this program
 
 ```zsh
