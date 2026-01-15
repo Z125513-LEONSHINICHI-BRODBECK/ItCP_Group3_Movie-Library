@@ -2,25 +2,14 @@
 #define FILE_IO_H
 
 #include <stdio.h>
+#include "movie_list.h"
 
-#define MAX_STR 128
+/* Load movies from CSV file into an existing MovieList.
+   Returns number of movies loaded, or -1 on fatal error. */
+int load_movies(const char *filename, MovieList *list);
 
-/* Movie record used only for file I/O */
-typedef struct {
-    int id;
-    int year;
-    char title[MAX_STR];
-    char origin[MAX_STR];
-    char genre[MAX_STR];
-    char director[MAX_STR];
-} MovieRecord;
+/* Save movies from a MovieList to CSV file.
+   Returns 0 on success, -1 on failure. */
+int save_movies(const char *filename, const MovieList *list);
 
-/* Load movies from CSV file
-   Returns number of movies loaded, or -1 on fatal error */
-int load_movies(const char *filename, MovieRecord **movies, int *count);
-
-/* Save movies to CSV file
-   Returns 0 on success, -1 on failure */
-int save_movies(const char *filename, const MovieRecord *movies, int count);
-
-#endif
+#endif /* FILE_IO_H */
