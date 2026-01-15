@@ -212,7 +212,7 @@ void edit_movie_manually(MovieList *list, int id) {
     if (!list) return;
 
     /* IDs are 1-based, list index is 0-based */
-    if (id <= 0 || (size_t)id > movie_list_size(list)) {
+    if (id <= 0 || id > movie_list_size(list)) {
         printf("No movie with ID %d found.\n", id);
         return;
     }
