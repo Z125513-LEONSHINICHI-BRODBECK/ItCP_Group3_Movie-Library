@@ -6,6 +6,7 @@
 #include "movie_list.h"
 #include "command.h"
 #include "./commands/movie_search.h"
+#include "./commands/movie_add_edit.h"
 
 int isRunning = 1;
 
@@ -44,20 +45,20 @@ int main(void) {
                 // TODO: group movies
                 break;
             case (CMD_SEARCH):
-                if (n < 3) { printf("Usage: search [-t|-i|-y|-o|-g|-d] <value>\n"); break; }
-                if (flag[0] != '-') { printf("Expected flag after search\n"); break; }
+                if (n < 3) { printf("Usage: search [-t|-i|-y|-o|-g|-d] <value>\n> "); break; }
+                if (flag[0] != '-') { printf("Expected flag after search\n> "); break; }
 
                 switch (flag[1]) {
                     case 't': movie_list_search_by_title(list, arg); break;
                     case 'i': {
                         char *end; long id = strtol(arg, &end, 10);
-                        if (end == arg) printf("Invalid id: %s\n", arg);
+                        if (end == arg) printf("Invalid id: %s\n> ", arg);
                         else movie_list_search_by_id(list, (int)id);
                         break;
                     }
                     case 'y': {
                         char *end; long y = strtol(arg, &end, 10);
-                        if (end == arg) printf("Invalid year: %s\n", arg);
+                        if (end == arg) printf("Invalid year: %s\n> ", arg);
                         else movie_list_search_by_year(list, (int)y);
                         break;
                     }
@@ -65,15 +66,32 @@ int main(void) {
                     case 'g': movie_list_search_by_genre(list, arg); break;
                     case 'd': movie_list_search_by_director(list, arg); break;
                     default:
-                        printf("Unknown search flag: %s\n", flag);
+                        printf("Unknown search flag: %s\n> ", flag);
                 }
                 break;
 
             case (CMD_ADD):
-                // TODO: add movie
+                add_movie_manually(list);
                 break;
             case (CMD_EDIT):
-                // TODO: edit movie
+                if (n < 3) {
+                    printf("Usage: edit -i <id>\n> ");
+                    break;
+                }
+                if (flag[0] != '-' || flag[1] != 'i') {
+                    printf("Expected -i flag for edit\n> ");
+                    break;
+                }
+
+                {
+                    char *end;
+                    long id = strtol(arg, &end, 10);
+                    if (end == arg || *end != '\0' || id <= 0) {
+                        printf("Invalid id: %s\n", arg);
+                    } else {
+                        edit_movie_manually(list, (int)id);
+                    }
+                }
                 break;
             case (CMD_DELETE):
                 // TODO: delete movie
@@ -93,7 +111,7 @@ int main(void) {
                 break;
             default:
                 // TODO: show help
-                printf("Unknown command\n");
+                printf("Unknown command\n> ");
         }
     }
 
