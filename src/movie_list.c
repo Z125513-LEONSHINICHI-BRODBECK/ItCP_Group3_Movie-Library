@@ -70,12 +70,12 @@ void movie_list_print_table(const MovieList *list) {
     printf("\e[1;1H\e[2J");
 
     printf(
-        "| %-4s | %-12s | %-25s | %-8s | %-18s | %-20s |\n",
+        "| %-4s | %-12s | %-33s | %-13s | %-18s | %-20s |\n",
         "ID", "Year", "Title", "Origin", "Genre", "Director"
     );
 
     printf(
-        "|------|--------------|---------------------------|----------|--------------------|----------------------|\n"
+        "|------|--------------|-----------------------------------|---------------|--------------------|----------------------|\n"
     );
 
     for (size_t i = 0; i < movie_list_size(list); ++i) {
@@ -83,7 +83,7 @@ void movie_list_print_table(const MovieList *list) {
         if (!m) continue;
 
         printf(
-            "| %4d | %12d | %-25s | %-8s | %-18s | %-20s |\n",
+            "| %4d | %12d | %-33s | %-13s | %-18s | %-20s |\n",
             movie_get_id(m),
             movie_get_release_year(m),
             movie_get_title(m),

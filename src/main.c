@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "movie.h"
+#include "file_io.h"
 #include "movie_list.h"
 #include "command.h"
 #include "./commands/movie_search.h"
@@ -9,10 +10,22 @@
 int isRunning = 1;
 
 int main(void) {
-    /* create initial movie list */
+    int count = 0;
     MovieList *list = movie_list_create();
-   
-    // TODO: read csv file
+    if (!list) {
+        fprintf(stderr, "Failed to create movie list\n");
+        return 1;
+    }
+
+    /* load_movies now fills the provided MovieList and returns number loaded */
+    count = load_movies("movie.csv", list);
+    if (count < 0) {
+        fprintf(stderr, "Failed to load movies from movie.csv\n");
+    } else {
+        /* optional: print how many loaded */
+        printf("Loaded %d movies\n", count);
+    }
+
     movie_list_print_table(list);
 
     while (isRunning) {
