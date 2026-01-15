@@ -19,4 +19,4 @@ jobs:
 
       - name: Compile
         run: |
-          gcc -Wall -Wextra -Werror -o app src/*.c
+          gcc -Wall -Wextra -Werror -o app $(find src -name "*.c")
