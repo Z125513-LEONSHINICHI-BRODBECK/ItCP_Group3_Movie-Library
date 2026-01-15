@@ -116,7 +116,7 @@ int main(void) {
     }
 
     /* Cleanup */
-    for (size_t i = 0; i < movie_list_size(list); ++i) {
+    for (int i = 0; i < movie_list_size(list); ++i) {
         movie_destroy(movie_list_get_mut(list, i));
     }
     movie_list_destroy(list);
