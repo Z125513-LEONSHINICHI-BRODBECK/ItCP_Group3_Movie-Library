@@ -13,10 +13,12 @@ A simple terminal-based Movie Library Management System written in C. The projec
 
 ---
 
+compile and run from the repository root folder
+
 ## How to compile this program
 
 ```zsh
-gcc gcc src/main.c src/movie.c src/movie_list.c src/command.c src/commands/movie_search.c -o MovieLibrary
+gcc src/main.c src/movie.c src/movie_list.c src/command.c src/commands/movie_search.c src/file_io.c src/commands/movie_add_edit.c -o MovieLibrary
 ```
 
 ## How to run this file

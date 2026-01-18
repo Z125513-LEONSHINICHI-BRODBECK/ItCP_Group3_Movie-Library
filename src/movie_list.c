@@ -4,8 +4,8 @@
 
 struct MovieList {
     Movie **data;
-    size_t size;
-    size_t capacity;
+    int size;
+    int capacity;
 };
 
 #define INITIAL_CAPACITY 32
@@ -34,23 +34,23 @@ void movie_list_destroy(MovieList *list) {
     free(list);
 }
 
-size_t movie_list_size(const MovieList *list) {
-    return list->size;
+int movie_list_size(const MovieList *list) {
+    return (int)list->size;
 }
 
-const Movie *movie_list_get(const MovieList *list, size_t index) {
+const Movie *movie_list_get(const MovieList *list, int index) {
     if (index >= list->size) return NULL;
     return list->data[index];
 }
 
-Movie *movie_list_get_mut(MovieList *list, size_t index) {
+Movie *movie_list_get_mut(MovieList *list, int index) {
     if (index >= list->size) return NULL;
     return list->data[index];
 }
 
 void movie_list_add(MovieList *list, Movie *movie) {
     if (list->size == list->capacity) {
-        size_t new_capacity = list->capacity * 2;
+        int new_capacity = list->capacity * 2;
         Movie **new_data = realloc(
             list->data,
             new_capacity * sizeof *new_data
@@ -78,7 +78,7 @@ void movie_list_print_table(const MovieList *list) {
         "|------|--------------|-----------------------------------|---------------|--------------------|----------------------|\n"
     );
 
-    for (size_t i = 0; i < movie_list_size(list); ++i) {
+    for (int i = 0; i < movie_list_size(list); ++i) {
         const Movie *m = movie_list_get(list, i);
         if (!m) continue;
 
