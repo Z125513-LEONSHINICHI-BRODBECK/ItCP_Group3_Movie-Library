@@ -66,9 +66,9 @@ void groupMovies(Movie *movies, int count, char flag) {
     }
 
     // After sorting, print the list to the terminal
-    printf("%-6s | %-20s | %-20s | %-15s | %-10s\n", "Year", "Title", "Director", "Genre", "Origin");
+    /*printf("%-6s | %-20s | %-20s | %-15s | %-10s\n", "Year", "Title", "Director", "Genre", "Origin");
     for (int i = 0; i < count; i++) {
         printf("%-6d | %-20.20s | %-20.20s | %-15.15s | %-10.10s\n", 
                movies[i].year, movies[i].title, movies[i].director, movies[i].genre, movies[i].origin);
-    }
+    }*/
 }
