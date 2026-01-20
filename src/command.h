@@ -2,7 +2,7 @@
 #define COMMAND_H
 
 typedef enum {
-    CMD_GROUP,
+    CMD_SORT,
     CMD_SEARCH,
     CMD_ADD,
     CMD_EDIT,

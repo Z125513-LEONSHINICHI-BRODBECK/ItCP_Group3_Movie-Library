@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "help.h"
+#include "./help.h"
 
 void show_help(void) {
     printf("\nAvailable commands:\n\n");
@@ -16,8 +16,8 @@ void show_help(void) {
     printf("      -g  genre\n");
     printf("      -d  director\n\n");
 
-    printf("  group <field>\n");
-    printf("    Group movies by a field\n\n");
+    printf("  sort <field>\n");
+    printf("    Sort movies by a field\n\n");
 
     printf("  add\n");
     printf("    Add a new movie\n\n");

@@ -1,5 +1,5 @@
-#include "movie_delete.h"
-#include "./movie.h"
+#include "./movie_delete.h"
+#include "./../movie.h"
 #include <stdio.h>
 
 int delete_movie_interactive(MovieList *list) {

@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "group_movie.h"
-#include "help.h"
 #include "movie.h"
 #include "file_io.h"
-#include "movie_delete.h"
 #include "movie_list.h"
 #include "command.h"
+#include "./commands/sort_movie.h"
+#include "./commands/help.h"
+#include "./commands/movie_delete.h"
 #include "./commands/movie_search.h"
 #include "./commands/movie_add_edit.h"
-#include "statistics.h"
+#include "./commands/statistics.h"
 
 int isRunning = 1;
 const char *DB_FILE = "movie.csv";
@@ -46,12 +46,12 @@ int main(void) {
         int n = sscanf(input, "%31s %31s %255[^\n]", command, flag, arg);
 
         switch (to_command(command)) {
-            case (CMD_GROUP):
+            case (CMD_SORT):
                 if (flag[0] != '-') {
-                    printf("Usage: group [-y|-d|-g|-o]\n> ");
+                    printf("Usage: sort [-i|-y|-d|-g|-o]\n> ");
                 } else {
                     // Pass the character after the dash (e.g., 'y' from "-y")
-                    group_movies(list, flag[1]);
+                    sort_movies(list, flag[1]);
                 }
                 break;
 

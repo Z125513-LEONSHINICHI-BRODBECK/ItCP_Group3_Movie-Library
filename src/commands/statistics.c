@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#include "statistics.h"
-#include "movie.h"
-#include "movie_list.h"
+#include "./statistics.h"
+#include "./../movie.h"
 
 void show_stats(const MovieList *list) {
     printf("\e[1;1H\e[2J");
