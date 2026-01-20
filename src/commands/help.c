@@ -4,9 +4,6 @@
 void show_help(void) {
     printf("\nAvailable commands:\n\n");
 
-    printf("  show\n");
-    printf("    Show all movies\n\n");
-
     printf("  search [-t|-i|-y|-o|-g|-d] <value>\n");
     printf("    Search movies by:\n");
     printf("      -t  title\n");
