@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <string.h>
-#include "stats.h"
+#include "statistics.h"
 #include "movie.h"
 #include "movie_list.h"
 
 void show_stats(const MovieList *list) {
+    printf("\e[1;1H\e[2J");
+
     if (!list || movie_list_size(list) == 0) {
         printf("No movies loaded.\n");
         return;

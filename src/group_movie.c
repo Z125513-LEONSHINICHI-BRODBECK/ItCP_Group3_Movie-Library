@@ -1,74 +1,66 @@
+#include "group_movie.h"
+#include "./movie.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <strings.h> // Necessary for strcasecmp on UNIX systems
+#include <strings.h>
 
-typedef struct {
-    int year;
-    char title[100];
-    char director[100];
-    char genre[50];
-    char origin[50];
-} Movie;
-
-// --- Comparison Functions ---
 
 // Sorts numerically (Oldest to Newest)
-int compareYear(const void *a, const void *b) {
-    Movie *movieA = (Movie *)a;
-    Movie *movieB = (Movie *)b;
-    return (movieA->year - movieB->year);
+static int compareYear(const void *a, const void *b) {
+    const Movie *mA = *(const Movie **)a;
+    const Movie *mB = *(const Movie **)b;
+    return movie_get_release_year(mA) - movie_get_release_year(mB);
 }
 
 // Sorts alphabetically by Director
-int compareDirector(const void *a, const void *b) {
-    Movie *movieA = (Movie *)a;
-    Movie *movieB = (Movie *)b;
-    return strcasecmp(movieA->director, movieB->director);
+static int compareDirector(const void *a, const void *b) {
+    const Movie *mA = *(const Movie **)a;
+    const Movie *mB = *(const Movie **)b;
+    // Handle NULLs safely if necessary, though strict CSVs shouldn't have them
+    return strcasecmp(movie_get_director(mA), movie_get_director(mB));
 }
 
 // Sorts alphabetically by Genre
-int compareGenre(const void *a, const void *b) {
-    Movie *movieA = (Movie *)a;
-    Movie *movieB = (Movie *)b;
-    return strcasecmp(movieA->genre, movieB->genre);
+static int compareGenre(const void *a, const void *b) {
+    const Movie *mA = *(const Movie **)a;
+    const Movie *mB = *(const Movie **)b;
+    return strcasecmp(movie_get_genre(mA), movie_get_genre(mB));
 }
 
-// Sorts alphabetically by Origin
-int compareOrigin(const void *a, const void *b) {
-    Movie *movieA = (Movie *)a;
-    Movie *movieB = (Movie *)b;
-    return strcasecmp(movieA->origin, movieB->origin);
+static int compareOrigin(const void *a, const void *b) {
+    const Movie *mA = *(const Movie **)a;
+    const Movie *mB = *(const Movie **)b;
+    return strcasecmp(movie_get_origin(mA), movie_get_origin(mB));
 }
 
-// --- The Grouping Logic ---
-
-void groupMovies(Movie *movies, int count, char flag) {
-    if (flag == 'y') {
-        qsort(movies, count, sizeof(Movie), compareYear);
-        printf("\nGrouped by Release Year (Oldest to Newest):\n");
-    } 
-    else if (flag == 'd') {
-        qsort(movies, count, sizeof(Movie), compareDirector);
-        printf("\nGrouped Alphabetically by Director:\n");
-    } 
-    else if (flag == 'g') {
-        qsort(movies, count, sizeof(Movie), compareGenre);
-        printf("\nGrouped Alphabetically by Genre:\n");
-    } 
-    else if (flag == 'o') {
-        qsort(movies, count, sizeof(Movie), compareOrigin);
-        printf("\nGrouped Alphabetically by Origin:\n");
-    } 
-    else {
-        printf("\nInvalid flag. Use -y, -d, -g, or -o.\n");
+void group_movies(MovieList *list, char flag) {
+    if (!list || movie_list_size(list) == 0) {
+        printf("List is empty.\n");
         return;
     }
 
-    // After sorting, print the list to the terminal
-    /*printf("%-6s | %-20s | %-20s | %-15s | %-10s\n", "Year", "Title", "Director", "Genre", "Origin");
-    for (int i = 0; i < count; i++) {
-        printf("%-6d | %-20.20s | %-20.20s | %-15.15s | %-10.10s\n", 
-               movies[i].year, movies[i].title, movies[i].director, movies[i].genre, movies[i].origin);
-    }*/
+    switch(flag) {
+        case 'y':
+            printf("Sorting by Release Year...\n");
+            movie_list_sort(list, compareYear);
+            break;
+        case 'd':
+            printf("Sorting by Director...\n");
+            movie_list_sort(list, compareDirector);
+            break;
+        case 'g':
+            printf("Sorting by Genre...\n");
+            movie_list_sort(list, compareGenre);
+            break;
+        case 'o':
+            printf("Sorting by Origin...\n");
+            movie_list_sort(list, compareOrigin);
+            break;
+        default:
+            printf("Invalid flag. Use -y, -d, -g, or -o.\n");
+            return;
+    }
+
+    // Reprint the table to show result
+    movie_list_print_table(list);
 }

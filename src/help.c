@@ -35,5 +35,5 @@ void show_help(void) {
     printf("    Show this help message\n\n");
 
     printf("  exit\n");
-    printf("    Exit the program\n\n");
+    printf("    Exit the program\n\n> ");
 }
