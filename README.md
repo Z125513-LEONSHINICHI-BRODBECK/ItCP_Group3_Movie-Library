@@ -18,7 +18,7 @@ compile and run from the repository root folder
 ## How to compile this program
 
 ```zsh
-gcc src/main.c src/movie.c src/movie_list.c src/command.c src/commands/movie_search.c src/file_io.c src/commands/movie_add_edit.c src/help.c src/statistics.c src/sort_movie.c src/movie_delete.c -o MovieLibrary
+gcc src/main.c src/movie.c src/movie_list.c src/command.c src/file_io.c src/commands/help.c src/commands/movie_add_edit.c src/commands/movie_delete.c src/commands/movie_search.c src/commands/sort_movie.c src/commands/statistics.c -o MovieLibrary
 ```
 
 ## How to run this file
