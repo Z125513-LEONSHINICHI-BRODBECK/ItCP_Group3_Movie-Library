@@ -2,7 +2,7 @@
 #include "command.h"
 
 Command to_command(const char *s) {
-    if (strcmp(s, "group") == 0)  return CMD_GROUP;
+    if (strcmp(s, "sort") == 0)  return CMD_SORT;
     if (strcmp(s, "search") == 0)  return CMD_SEARCH;
     if (strcmp(s, "add") == 0)  return CMD_ADD;
     if (strcmp(s, "edit") == 0)  return CMD_EDIT;

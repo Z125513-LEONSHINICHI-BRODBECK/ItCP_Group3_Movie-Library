@@ -5,10 +5,15 @@
 #include "file_io.h"
 #include "movie_list.h"
 #include "command.h"
+#include "./commands/sort_movie.h"
+#include "./commands/help.h"
+#include "./commands/movie_delete.h"
 #include "./commands/movie_search.h"
 #include "./commands/movie_add_edit.h"
+#include "./commands/statistics.h"
 
 int isRunning = 1;
+const char *DB_FILE = "movie.csv";
 
 int main(void) {
     int count = 0;
@@ -19,7 +24,7 @@ int main(void) {
     }
 
     /* load_movies now fills the provided MovieList and returns number loaded */
-    count = load_movies("movie.csv", list);
+    count = load_movies(DB_FILE, list);
     if (count < 0) {
         fprintf(stderr, "Failed to load movies from movie.csv\n");
     } else {
@@ -41,9 +46,15 @@ int main(void) {
         int n = sscanf(input, "%31s %31s %255[^\n]", command, flag, arg);
 
         switch (to_command(command)) {
-            case (CMD_GROUP):
-                // TODO: group movies
+            case (CMD_SORT):
+                if (flag[0] != '-') {
+                    printf("Usage: sort [-i|-y|-d|-g|-o]\n> ");
+                } else {
+                    // Pass the character after the dash (e.g., 'y' from "-y")
+                    sort_movies(list, flag[1]);
+                }
                 break;
+
             case (CMD_SEARCH):
                 if (n < 3) { printf("Usage: search [-t|-i|-y|-o|-g|-d] <value>\n> "); break; }
                 if (flag[0] != '-') { printf("Expected flag after search\n> "); break; }
@@ -72,6 +83,7 @@ int main(void) {
 
             case (CMD_ADD):
                 add_movie_manually(list);
+                save_movies(DB_FILE, list);
                 break;
             case (CMD_EDIT):
                 if (n < 3) {
@@ -90,17 +102,21 @@ int main(void) {
                         printf("Invalid id: %s\n", arg);
                     } else {
                         edit_movie_manually(list, (int)id);
+                        save_movies(DB_FILE, list);
                     }
                 }
                 break;
             case (CMD_DELETE):
-                // TODO: delete movie
+                    if (delete_movie_interactive(list)) {
+                        save_movies(DB_FILE, list);
+                        movie_list_print_table(list);
+                    }
                 break;
             case (CMD_STATS):
-                // TODO: show stats
+                show_stats(list);
                 break;
             case (CMD_HELP):
-                // TODO: show help
+                show_help();
                 break;
             case (CMD_EXIT):
                 isRunning = 0;
@@ -110,8 +126,8 @@ int main(void) {
                 movie_list_print_table(list);
                 break;
             default:
-                // TODO: show help
-                printf("Unknown command\n> ");
+                printf("Unknown command\n'help' to show available commands\n> ");
+                break;
         }
     }
 

@@ -15,6 +15,8 @@ int movie_list_size(const MovieList *list);
 const Movie *movie_list_get(const MovieList *list, int index); //read-only
 Movie *movie_list_get_mut(MovieList *list, int index); //mutable
 void movie_list_add(MovieList *list, Movie *movie);
+void movie_list_sort(MovieList *list, int (*compar)(const void *, const void *));
+void movie_list_delete_at(MovieList *list, int index);
 void movie_list_print_table(const MovieList *list);
 
 #endif /* MOVIE_LIST_H */

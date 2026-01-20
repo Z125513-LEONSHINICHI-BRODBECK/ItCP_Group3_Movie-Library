@@ -65,6 +65,29 @@ void movie_list_add(MovieList *list, Movie *movie) {
     list->data[list->size++] = movie;
 }
 
+/* Sorts the list. Note: The comparator receives Movie** (pointers to pointers) */
+void movie_list_sort(MovieList *list, int (*compar)(const void *, const void *)) {
+    if (!list || list->size < 2) return;
+    qsort(list->data, list->size, sizeof(Movie *), compar);
+}
+
+/* Removes element at index, shifts remaining elements, and destroys the movie object */
+void movie_list_delete_at(MovieList *list, int index) {
+    if (!list || index < 0 || index >= list->size) return;
+
+    // 1. Destroy the actual movie object
+    movie_destroy(list->data[index]);
+
+    // 2. Shift everything after index to the left
+    for (int i = index; i < list->size - 1; i++) {
+        list->data[i] = list->data[i + 1];
+    }
+
+    // 3. Nullify last slot and decrease size
+    list->data[list->size - 1] = NULL;
+    list->size--;
+}
+
 void movie_list_print_table(const MovieList *list) {
     if (!list) return;
     printf("\e[1;1H\e[2J");
