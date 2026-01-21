@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Private definition */
 struct Movie {
     int id;
     int release_year;
@@ -22,7 +21,6 @@ static char *copy_string(const char *s) {
     return copy;
 }
 
-/* Creation / destruction */
 
 Movie *movie_create(
     int id,
@@ -55,7 +53,6 @@ void movie_destroy(Movie *movie) {
     free(movie);
 }
 
-/* Getters */
 
 int movie_get_id(const Movie *movie) {
     return movie->id;
@@ -81,7 +78,6 @@ const char *movie_get_director(const Movie *movie) {
     return movie->director;
 }
 
-/* Setters */
 
 void movie_set_id(Movie *movie, int id) {
     movie->id = id;
