@@ -4,29 +4,24 @@
 #include <string.h>
 #include <strings.h>
 
-// Sorts numerically by ID (Lowest to Highest)
 static int compareID(const void *a, const void *b) {
     const Movie *mA = *(const Movie **)a;
     const Movie *mB = *(const Movie **)b;
     return movie_get_id(mA) - movie_get_id(mB);
 }
 
-// Sorts numerically by Year (Oldest to Newest)
 static int compareYear(const void *a, const void *b) {
     const Movie *mA = *(const Movie **)a;
     const Movie *mB = *(const Movie **)b;
     return movie_get_release_year(mA) - movie_get_release_year(mB);
 }
 
-// Sorts alphabetically by Director
 static int compareDirector(const void *a, const void *b) {
     const Movie *mA = *(const Movie **)a;
     const Movie *mB = *(const Movie **)b;
-    // Handle NULLs safely if necessary, though strict CSVs shouldn't have them
     return strcasecmp(movie_get_director(mA), movie_get_director(mB));
 }
 
-// Sorts alphabetically by Genre
 static int compareGenre(const void *a, const void *b) {
     const Movie *mA = *(const Movie **)a;
     const Movie *mB = *(const Movie **)b;
@@ -71,6 +66,5 @@ void sort_movies(MovieList *list, char flag) {
             return;
     }
 
-    // Reprint the table to show result
     movie_list_print_table(list);
 }
