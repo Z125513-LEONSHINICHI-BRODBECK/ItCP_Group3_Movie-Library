@@ -8,12 +8,10 @@ int delete_movie_interactive(MovieList *list) {
 
     printf("Enter movie ID to delete: ");
     if (scanf("%d", &id) != 1) {
-        // flush buffer
         int c; while ((c = getchar()) != '\n' && c != EOF);
         printf("Invalid input.\n");
         return 0;
     }
-    // Clear newline left by scanf
     getchar();
 
     int size = movie_list_size(list);
@@ -37,13 +35,12 @@ int delete_movie_interactive(MovieList *list) {
 
         printf("\nConfirm delete (y/n): ");
         scanf("%c", &confirm);
-        // consume newline
         int c; while ((c = getchar()) != '\n' && c != EOF);
 
         if (confirm == 'y' || confirm == 'Y') {
             movie_list_delete_at(list, found_index);
             printf("Movie deleted successfully.\n");
-            return 1; // Return 1 indicating a change happened
+            return 1; 
         } else {
             printf("Deletion cancelled.\n");
             return 0;
