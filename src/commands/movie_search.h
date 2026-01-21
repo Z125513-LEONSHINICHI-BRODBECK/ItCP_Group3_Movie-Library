@@ -3,7 +3,6 @@
 
 #include "./../movie_list.h"
 
-/* Search Operations */
 void movie_list_search_by_title(const MovieList *list, const char *title);
 void movie_list_search_by_id(const MovieList *list, int id);
 void movie_list_search_by_year(const MovieList *list, int year);
@@ -11,4 +10,4 @@ void movie_list_search_by_origin(const MovieList *list, const char *origin);
 void movie_list_search_by_genre(const MovieList *list, const char *genre);
 void movie_list_search_by_director(const MovieList *list, const char *director);
 
-#endif /* MOVIE_LIST_H */
+#endif 
