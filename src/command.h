@@ -14,12 +14,7 @@ typedef enum {
     CMD_UNKNOWN
 } Command;
 
-/**
- * Converts a command string to a Command enum value.
- *
- * @param s  input string (e.g. "add", "search")
- * @return   corresponding Command value, or CMD_UNKNOWN
- */
+
 Command to_command(const char *s);
 
-#endif /* COMMAND_H */
+#endif 
