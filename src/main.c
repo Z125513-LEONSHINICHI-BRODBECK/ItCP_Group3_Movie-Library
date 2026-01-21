@@ -23,12 +23,10 @@ int main(void) {
         return 1;
     }
 
-    /* load_movies now fills the provided MovieList and returns number loaded */
     count = load_movies(DB_FILE, list);
     if (count < 0) {
         fprintf(stderr, "Failed to load movies from movie.csv\n");
     } else {
-        /* optional: print how many loaded */
         printf("Loaded %d movies\n", count);
     }
 
@@ -50,7 +48,6 @@ int main(void) {
                 if (flag[0] != '-') {
                     printf("Usage: sort [-i|-y|-d|-g|-o]\n> ");
                 } else {
-                    // Pass the character after the dash (e.g., 'y' from "-y")
                     sort_movies(list, flag[1]);
                 }
                 break;
@@ -131,7 +128,6 @@ int main(void) {
         }
     }
 
-    /* Cleanup */
     for (int i = 0; i < movie_list_size(list); ++i) {
         movie_destroy(movie_list_get_mut(list, i));
     }
